@@ -2,11 +2,10 @@ import streamlit as st
 import pymysql as sql
 
 def login_page():
-    st.sidebar.title("login Page")
     db = sql.connect(
         host="localhost",
         user="root",
-        password="7770",
+        password="Yoge@2006",
         database="odoo"
     )
     smt = db.cursor()
@@ -20,52 +19,83 @@ def login_page():
     if "user_email" not in st.session_state:
         st.session_state.user_email = ""
 
+    # -------- CSS --------
     st.markdown("""
-    <style>
-    .block-container{
-    padding-top:0rem;
-    padding-bottom:0rem;
-    padding-left:0rem;
-    padding-right:0rem;
-    }
-    header{visibility:hidden;}
-    footer{visibility:hidden;}
+<style>
 
-    [data-testid="stAppViewContainer"]{
-    background:linear-gradient(135deg,#1e3c72,#2a5298,#6dd5ed);
+/* -------- FORCE PAGE RESET -------- */
+html, body, [class*="css"]  {
+    margin:0 !important;
+    padding:0 !important;
+}
+
+/* -------- REMOVE DEFAULT WIDTH -------- */
+.block-container {
+    max-width: 100% !important;
+    padding: 0 !important;
+}
+
+/* -------- FULL SCREEN CENTER -------- */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(135deg,#e0ecff,#f5f7fa,#dbeafe);
+}
+
+/* -------- MAIN CENTER FIX -------- */
+section.main > div {
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
-    }
+}
 
-    .main-card{
-    width:550px;
-    background:white;
-    border-radius:20px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.35);
-    margin:auto;
-    color:black;
-    padding:25px;
-    }
-
-    .main-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 30px 80px rgba(0,0,0,0.45);
-    }
-
-    .stButton>button{
+/* -------- FIX EXTRA WRAPPERS -------- */
+div[data-testid="stVerticalBlock"] {
     width:100%;
-    background:linear-gradient(45deg,#ff6a00,#ee0979);
+    display:flex;
+    justify-content:center;
+}
+
+/* -------- CARD -------- */
+.main-card {
+    width:420px !important;
+    padding:30px;
+
+    border-radius:20px;
+    background:white;
+
+    box-shadow:0 20px 60px rgba(0,0,0,0.2);
+
+    color:black;
+}
+
+/* -------- INPUT FIX -------- */
+.stTextInput, .stSelectbox {
+    width:100% !important;
+}
+
+/* -------- BUTTON -------- */
+.stButton>button {
+    width:100%;
+    background: linear-gradient(45deg,#ff6a00,#ee0979);
     color:white;
     border:none;
     border-radius:10px;
     padding:12px;
-    font-size:18px;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    font-size:16px;
+}
 
+/* -------- RADIO CENTER -------- */
+div[role="radiogroup"]{
+    justify-content:center;
+}
+
+/* -------- HIDE SIDEBAR WHEN LOGIN -------- */
+section[data-testid="stSidebar"] {
+    display:none !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
     if st.session_state.logged_in:
 
         st.success(f"Welcome {st.session_state.user_email} 🎉")
@@ -156,5 +186,3 @@ def login_page():
                         st.rerun()
 
         st.markdown('</div>', unsafe_allow_html=True)
-        
-        

@@ -2,12 +2,12 @@ import streamlit as st
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
-from reglog import login_page
+from Register-login import login_page
 from Dashboard import show_dashboard
-from Product_Man import product_page 
+from Product_Management import product_page 
 from receipt import receipt_page
 from deliveries import deliver_page
-from transfers import transfer_page
+from Stock-Transfer import transfer_page
 from adjustment import adjustment_page
 
 st.set_page_config(page_title="CoreInventory", layout="wide")
