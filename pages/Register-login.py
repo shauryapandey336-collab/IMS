@@ -76,7 +76,7 @@ div[data-testid="stVerticalBlock"] {
 /* -------- BUTTON -------- */
 .stButton>button {
     width:100%;
-    background: linear-gradient(45deg,#ff6a00,#ee0979);
+    background:white;
     color:white;
     border:none;
     border-radius:10px;
