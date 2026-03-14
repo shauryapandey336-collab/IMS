@@ -1,0 +1,63 @@
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(50) NOT NULL,
+    sku VARCHAR(15) UNIQUE NOT NULL,      -- Fixed typo: VARHCAR -> VARCHAR
+    category VARCHAR(20),
+    unit VARCHAR(18),
+    stock INT DEFAULT 0,                  -- Changed to INT for calculations
+    location VARCHAR(30),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+CREATE TABLE warehouses (
+    warehouse_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    warehouse_name VARCHAR(10) NOT NULL,
+    location Varchar(20)
+);
+
+CREATE TABLE receipts (
+    receipt_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    supplier_name VARCHAR(20),
+    product_id INTEGER,
+    quantity INTEGER,
+    warehouse VARCHAR(20),
+    status VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+CREATE TABLE deliveries (
+    delivery_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    customer_name VARCHAR(20),
+    product_id INTEGER,
+    quantity INTEGER,
+    location VARCHAR(20),
+    status VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+CREATE TABLE transfers (
+    transfer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    product_id INTEGER,
+    from_location VARCHAR(30),
+    to_location VARCHAR(30),
+    quantity INTEGER,
+    status VARCHAR(30),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+CREATE TABLE adjustments (
+    adjustment_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT,
+    location VARCHAR(30),
+    system_quantity INT,
+    actual_quantity INT,
+    difference INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
